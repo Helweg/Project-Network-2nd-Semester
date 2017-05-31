@@ -1,0 +1,78 @@
+set version 12.1X47-D15.4
+set system host-name vSRX-1
+set system root-authentication encrypted-password "$1$TnAnsQGF$fcnGYrshGi/uRl7AHzc0o0"
+set system root-authentication ssh-dsa "ssh-dss AAAAB3NzaC1kc3MAAACBAMQrfP2bZyBXJ6PC7XXZ+MzErI8Jl6jah5L4/O8BsfP2hC7EvRfNoX7MqbrtCX/9gUH9gChVuBCB+ERULMdgRvM5uGhC/gs4UX+4dBbfBgKYYwgmisM8EoT25m7qI8ybpl2YZvHNznvO8h7kr4kpYuQEpKvgsTdH/Jle4Uqnjv7DAAAAFQDZaqA6QAgbW3O/zveaLCIDj6p0dwAAAIB1iL+krWrXiD8NPpY+w4dWXEqaV3bnobzPC4eyxQKBUCOr80Q5YBlWXVBHx9elwBWZwj0SF4hLKHznExnLerVsMuTMA846RbQmSz62vM6kGM13HFonWeQvWia0TDr78+rOEgWF2KHBSIxL51lmIDW8Gql9hJfD/Dr/NKP97w3L0wAAAIEAr3FkWU8XbYytQYEKxsIN9P1UQ1ERXB3G40YwqFO484SlyKyYCfaz+yNsaAJu2C8UebDIR3GieyNcOAKf3inCG8jQwjLvZskuZwrvlsz/xtcxSoAh9axJcdUfSJYMW/g+mD26JK1Cliw5rwp2nH9kUrJxeI7IReDp4egNkM4i15o= configurator@server1.he"
+set system login user lab uid 2000
+set system login user lab class super-user
+set system login user lab authentication encrypted-password "$1$TM7yIcWo$RLKMkLGcQq.WVSiWG9llY/"
+set system services ssh
+set system services telnet
+set system services web-management http interface fxp0.0
+set system services web-management https system-generated-certificate
+set system services web-management https interface all
+set system syslog file messages any any
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system ntp boot-server 172.25.11.254
+set system ntp server 172.25.11.254
+set interfaces ge-0/0/0 description "MGMT Interface - DO NOT DELETE;;"
+set interfaces ge-0/0/0 unit 0 family inet address 172.25.11.1/24
+set interfaces ge-0/0/1 description vSRX-1_to_vSRX-2
+set interfaces ge-0/0/1 unit 0 family inet address 172.20.77.1/30
+set interfaces ge-0/0/1 unit 0 family inet6 address fdaa:dead:beef:1::1/127
+set interfaces ge-0/0/2 description vSRX-1_to_vSRX-2
+set interfaces ge-0/0/2 unit 0 family inet address 172.20.66.1/30
+set interfaces ge-0/0/2 unit 0 family inet6 address fdaa:dead:beef:2::1/127
+set interfaces ge-0/0/3 description vSRX-1_to_vrinternet
+set interfaces ge-0/0/3 unit 0 family inet address 172.18.1.2/30
+set interfaces ge-0/0/4 description vSRX-1_to_vr101
+set interfaces ge-0/0/4 unit 0 family inet address 172.20.101.1/24
+set interfaces lo0 unit 0 description vSRX-1
+set interfaces lo0 unit 0 family inet filter input protect-host
+set interfaces lo0 unit 0 family inet address 192.168.1.1/32
+set interfaces lo0 unit 0 family inet6 address fdaa:dead:beef:9::1/128
+set routing-options static route 0.0.0.0/0 next-hop 172.18.1.1
+set routing-options static route 192.168.1.2/32 next-hop 172.20.101.10
+set routing-options static route 172.21.0.0/24 next-hop 172.20.101.10
+set routing-options static route 172.21.1.0/24 next-hop 172.20.101.10
+set routing-options static route 172.21.2.0/24 next-hop 172.20.101.10
+set protocols ospf export ospf-export
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
+set protocols ospf area 0.0.0.0 interface ge-0/0/3.0
+set protocols ospf area 0.0.0.0 interface ge-0/0/4.0
+set protocols ospf3 area 0.0.0.0 interface lo0.0 passive
+set protocols ospf3 area 0.0.0.0 interface ge-0/0/1.0
+set protocols ospf3 area 0.0.0.0 interface ge-0/0/2.0
+set policy-options policy-statement ospf-export term match-default-static-route from protocol static
+set policy-options policy-statement ospf-export term match-default-static-route from route-filter 0.0.0.0/0 exact
+set policy-options policy-statement ospf-export term match-default-static-route then accept
+set policy-options policy-statement ospf-export term match-interface-routes from route-filter 172.18.1.0/30 exact
+set policy-options policy-statement ospf-export term match-interface-routes from route-filter 172.20.101.0/24 exact
+set policy-options policy-statement ospf-export term match-interface-routes then accept
+set policy-options policy-statement ospf-export term match-other-static-routes from protocol static
+set policy-options policy-statement ospf-export term match-other-static-routes from route-filter 172.21.0.0/24 exact
+set policy-options policy-statement ospf-export term match-other-static-routes from route-filter 172.21.1.0/24 exact
+set policy-options policy-statement ospf-export term match-other-static-routes from route-filter 172.21.2.0/24 exact
+set policy-options policy-statement ospf-export term match-other-static-routes then accept
+set security forwarding-options family inet6 mode packet-based
+set security forwarding-options family mpls mode packet-based
+set firewall family inet filter protect-host term limit-icmp from source-address 172.25.11.0/24 except
+set firewall family inet filter protect-host term limit-icmp from source-address 0.0.0.0/0
+set firewall family inet filter protect-host term limit-icmp from protocol icmp
+set firewall family inet filter protect-host term limit-icmp then count count-limit-icmp
+set firewall family inet filter protect-host term limit-icmp then reject
+set firewall family inet filter protect-host term limit-ssh from source-address 172.25.11.0/24 except
+set firewall family inet filter protect-host term limit-ssh from source-address 0.0.0.0/0
+set firewall family inet filter protect-host term limit-ssh from protocol tcp
+set firewall family inet filter protect-host term limit-ssh from port ssh
+set firewall family inet filter protect-host term limit-ssh then count count-limit-ssh
+set firewall family inet filter protect-host term limit-ssh then reject
+set firewall family inet filter protect-host term limit-telnet from source-address 172.25.11.0/24 except
+set firewall family inet filter protect-host term limit-telnet from source-address 0.0.0.0/0
+set firewall family inet filter protect-host term limit-telnet from protocol tcp
+set firewall family inet filter protect-host term limit-telnet from port telnet
+set firewall family inet filter protect-host term limit-telnet then count count-limit-telnet
+set firewall family inet filter protect-host term limit-telnet then reject
+set firewall family inet filter protect-host term else-accept then accept
