@@ -1,0 +1,301 @@
+lab@srxA-1> show configuration
+## Last commit: 2017-05-30 12:28:06 UTC by lab
+version 12.1X46-D55.3;
+system {
+    host-name srxA-1;
+    root-authentication {
+        encrypted-password "$1$ZFKWoe0B$2Z/SmjUv4RmvHjdo0wH2//"; ## SECRET-DATA
+    }
+    login {
+        user lab {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$1$NnTjk5o/$YiTmVrs8htK3FC/i4ro5f0"; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        ssh;
+        telnet;
+        netconf {
+            ssh;
+        }
+        web-management {
+            http {
+                interface ge-0/0/0.0;
+            }
+            https {
+                system-generated-certificate;
+                interface all;
+            }
+        }
+    }
+    syslog {
+        file messages {
+            any critical;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands error;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        description "MGMT Interface - DO NOT DELETE";
+        unit 0 {
+            family inet {
+                address 10.210.14.131/26;
+            }
+        }
+    }
+    lt-0/0/0 {
+        unit 1 {
+            description From_BGP-A1_to_BGP-B1;
+            encapsulation ethernet;
+            peer-unit 2;
+            family inet {
+                address 100.100.100.1/30;
+            }
+        }
+        unit 2 {
+            description From_BGP-B1_to_BGP-A1;
+            encapsulation ethernet;
+            peer-unit 1;
+            family inet {
+                address 100.100.100.2/30;
+            }
+        }
+        unit 5 {
+            description From_BGP-B1_to_BGP-C1;
+            encapsulation ethernet;
+            peer-unit 6;
+            family inet {
+                address 100.100.100.5/30;
+            }
+        }
+        unit 6 {
+            description From_BGP-C1_to_BGP-B1;
+            encapsulation ethernet;
+            peer-unit 5;
+            family inet {
+                address 100.100.100.6/30;
+            }
+        }
+        unit 9 {
+            description From_BGP-C1_to_BGP-D1;
+            encapsulation ethernet;
+            peer-unit 10;
+            family inet {
+                address 100.100.100.9/30;
+            }
+        }
+        unit 10 {
+            description From_BGP-D1_to_BGP-C1;
+            encapsulation ethernet;
+            peer-unit 9;
+            family inet {
+                address 100.100.100.10/30;
+            }
+        }
+    }
+    ge-0/0/7 {
+        unit 0 {
+            family inet {
+                address 192.168.0.1/32;
+            }
+        }
+    }
+    lo0 {
+        unit 10 {
+            description BGP-A1_loopback;
+            family inet {
+                address 192.168.10.1/32;
+            }
+        }
+        unit 20 {
+            description BGP-B1_loopback;
+            family inet {
+                address 192.168.10.2/32;
+            }
+        }
+        unit 30 {
+            description BGP-C1_loopback;
+            family inet {
+                address 192.168.10.3/32;
+            }
+        }
+        unit 40 {
+            description BGP-D1_loopback;
+            family inet {
+                address 192.168.10.4/32;
+            }
+        }
+    }
+}
+snmp {
+    name srxA-1;
+    location JuniperLab;
+    interface ge-0/0/0.0;
+    community public {
+        authorization read-only;
+    }
+    community private {
+        authorization read-write;
+    }
+}
+policy-options {
+    policy-statement iBGP-to-eBGP {
+        term 1 {
+            from {
+                route-filter 100.100.100.0/24 exact;
+            }
+            then {
+                next-hop self;
+            }
+        }
+    }
+    policy-statement send-ospf {
+        term 1 {
+            from protocol ospf;
+            then accept;
+        }
+    }
+}
+security {
+    forwarding-options {
+        family {
+            mpls {
+                mode packet-based;
+            }
+        }
+    }
+}
+routing-instances {
+    BGP-A1 {
+        description BGP-border-router;
+        instance-type virtual-router;
+        interface lt-0/0/0.1;
+        interface ge-0/0/7.0;
+        interface lo0.10;
+        routing-options {
+            router-id 192.168.10.1;
+            autonomous-system 1;
+        }
+        protocols {
+            bgp {
+                group internal-peers {
+                    type internal;
+                    local-address 192.168.10.1;
+                    export [ send-ospf iBGP-to-eBGP ];
+                    neighbor 192.168.10.2;
+                }
+                group external-peers {
+                    type external;
+                    peer-as 2;
+                    neighbor 192.168.0.2;
+                }
+            }
+            ospf {
+                area 0.0.0.2 {
+                    interface lo0.10 {
+                        passive;
+                    }
+                    interface lt-0/0/0.1;
+                }
+            }
+        }
+    }
+    BGP-B1 {
+        description BGP-Reflector-Router;
+        instance-type virtual-router;
+        interface lt-0/0/0.2;
+        interface lt-0/0/0.5;
+        interface lo0.20;
+        routing-options {
+            router-id 192.168.10.2;
+            autonomous-system 1;
+        }
+        protocols {
+            bgp {
+                group internal-peers {
+                    type internal;
+                    local-address 192.168.10.2;
+                    export send-ospf;
+                    cluster 192.168.10.2;
+                    neighbor 192.168.10.1;
+                    neighbor 192.168.10.3;
+                    neighbor 192.168.10.4;
+                }
+            }
+            ospf {
+                area 0.0.0.2 {
+                    interface lt-0/0/0.5;
+                    interface lt-0/0/0.2;
+                    interface lo0.20 {
+                        passive;
+                    }
+                }
+            }
+        }
+    }
+    BGP-C1 {
+        description BGP-router;
+        instance-type virtual-router;
+        interface lt-0/0/0.6;
+        interface lt-0/0/0.9;
+        interface lo0.30;
+        routing-options {
+            router-id 192.168.10.3;
+            autonomous-system 1;
+        }
+        protocols {
+            bgp {
+                group internal-peers {
+                    type internal;
+                    local-address 192.168.10.3;
+                    export send-ospf;
+                    neighbor 192.168.10.2;
+                }
+            }
+            ospf {
+                area 0.0.0.2 {
+                    interface lo0.30 {
+                        passive;
+                    }
+                    interface lt-0/0/0.6;
+                    interface lt-0/0/0.9;
+                }
+            }
+        }
+    }
+    BGP-D1 {
+        description BGP-router;
+        instance-type virtual-router;
+        interface lt-0/0/0.10;
+        interface lo0.40;
+        routing-options {
+            router-id 192.168.10.4;
+            autonomous-system 1;
+        }
+        protocols {
+            bgp {
+                group internal-peers {
+                    type internal;
+                    local-address 192.168.10.4;
+                    export send-ospf;
+                    neighbor 192.168.10.2;
+                }
+            }
+            ospf {
+                area 0.0.0.2 {
+                    interface lt-0/0/0.10;
+                    interface lo0.40 {
+                        passive;
+                    }
+                }
+            }
+        }
+    }
+}
