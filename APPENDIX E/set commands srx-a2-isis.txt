@@ -1,0 +1,41 @@
+set interfaces lt-0/0/1 unit 102 description vr102_to_vr202
+set interfaces lt-0/0/1 unit 102 encapsulation ethernet
+set interfaces lt-0/0/1 unit 102 peer-unit 202
+set interfaces lt-0/0/1 unit 102 family inet address 172.20.102.2/24
+set interfaces lt-0/0/1 unit 102 family iso
+set interfaces lt-0/0/1 unit 202 description vr202_to_vr102
+set interfaces lt-0/0/1 unit 202 encapsulation ethernet
+set interfaces lt-0/0/1 unit 202 peer-unit 102
+set interfaces lt-0/0/1 unit 202 family inet address 172.20.202.2/24
+set interfaces lt-0/0/1 unit 202 family iso
+
+set interfaces ge-0/0/4 description Gateway_to_VR102/VR202
+set interfaces ge-0/0/4 vlan-tagging
+set interfaces ge-0/0/4 unit 102 vlan-id 102
+set interfaces ge-0/0/4 unit 102 family inet address 172.20.102.1/24
+set interfaces ge-0/0/4 unit 102 family iso
+set interfaces ge-0/0/4 unit 202 vlan-id 202
+set interfaces ge-0/0/4 unit 202 family inet address 172.20.202.1/24
+set interfaces ge-0/0/4 unit 202 family iso
+
+set interfaces ge-0/0/5 description IS-IS_to_srx-A2
+set interfaces ge-0/0/5 unit 0 family inet address 172.20.77.9/30
+set interfaces ge-0/0/5 unit 0 family iso
+
+set interfaces lo0 description srxA1
+set interfaces lo0 unit 0 family inet address 192.168.1.1/32
+set interfaces lo0 unit 0 family iso address 49.0001.0192.0168.0001.00
+
+set routing-options router-id 192.168.1.1
+
+set protocols isis interface ge-0/0/5.0 level 1 disable
+set protocols isis interface lo0.0 level 1 disable
+
+set security forwarding-options family inet6 mode packet-based
+set security forwarding-options family iso mode packet-based
+
+set routing-instances vr102 instance-type virtual-router
+set routing-instances vr102 interface lt-0/0/1.102
+
+set routing-instances vr202 instance-type virtual-router
+set routing-instances vr202 interface lt-0/0/1.202
