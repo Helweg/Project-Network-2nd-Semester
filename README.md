@@ -11,4 +11,4 @@
 ### Complete set commands vSRX-1.txt
 ### Startup configuration vSRX-1.txt
 ### Startup configuration vSRX-2.txt
-The complete configurations and set commands are not included, since no configurations are done on them.
+The complete configurations and set commands for vSRX-2 are not included, since no configurations are done on them.
