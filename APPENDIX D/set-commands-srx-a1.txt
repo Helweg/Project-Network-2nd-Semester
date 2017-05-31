@@ -1,0 +1,109 @@
+set interfaces lt-0/0/0 unit 1 description From_BGP-A1_to_BGP-B1
+set interfaces lt-0/0/0 unit 1 encapsulation ethernet
+set interfaces lt-0/0/0 unit 1 peer-unit 2
+set interfaces lt-0/0/0 unit 1 family inet address 100.100.100.1/30
+set interfaces lt-0/0/0 unit 2 description From_BGP-B1_to_BGP-A1
+set interfaces lt-0/0/0 unit 2 encapsulation ethernet
+set interfaces lt-0/0/0 unit 2 peer-unit 1
+set interfaces lt-0/0/0 unit 2 family inet address 100.100.100.2/30
+
+set interfaces lt-0/0/0 unit 5 description From_BGP-B1_to_BGP-C1
+set interfaces lt-0/0/0 unit 5 encapsulation ethernet
+set interfaces lt-0/0/0 unit 5 peer-unit 6
+set interfaces lt-0/0/0 unit 5 family inet address 100.100.100.5/30
+set interfaces lt-0/0/0 unit 6 description From_BGP-C1_to_BGP-B1
+set interfaces lt-0/0/0 unit 6 encapsulation ethernet
+set interfaces lt-0/0/0 unit 6 peer-unit 5
+set interfaces lt-0/0/0 unit 6 family inet address 100.100.100.6/30
+
+set interfaces lt-0/0/0 unit 9 description From_BGP-C1_to_BGP-D1
+set interfaces lt-0/0/0 unit 9 encapsulation ethernet
+set interfaces lt-0/0/0 unit 9 peer-unit 10
+set interfaces lt-0/0/0 unit 9 family inet address 100.100.100.9/30
+set interfaces lt-0/0/0 unit 10 description From_BGP-D1_to_BGP-C1
+set interfaces lt-0/0/0 unit 10 encapsulation ethernet
+set interfaces lt-0/0/0 unit 10 peer-unit 9
+set interfaces lt-0/0/0 unit 10 family inet address 100.100.100.10/30
+
+set interfaces ge-0/0/7 unit 0 family inet address 192.168.0.1/32
+
+set interfaces lo0 unit 10 description BGP-A1_loopback
+set interfaces lo0 unit 10 family inet address 192.168.10.1/32
+set interfaces lo0 unit 20 description BGP-B1_loopback
+set interfaces lo0 unit 20 family inet address 192.168.10.2/32
+set interfaces lo0 unit 30 description BGP-C1_loopback
+set interfaces lo0 unit 30 family inet address 192.168.10.3/32
+set interfaces lo0 unit 40 description BGP-D1_loopback
+set interfaces lo0 unit 40 family inet address 192.168.10.4/32
+
+set policy-options policy-statement iBGP-to-eBGP term 1 from route-filter 100.100.100.0/24 exact
+set policy-options policy-statement iBGP-to-eBGP term 1 then next-hop self
+set policy-options policy-statement send-ospf term 1 from protocol ospf
+set policy-options policy-statement send-ospf term 1 then accept
+
+set routing-instances BGP-A1 description BGP-border-router
+set routing-instances BGP-A1 instance-type virtual-router
+set routing-instances BGP-A1 interface lt-0/0/0.1
+set routing-instances BGP-A1 interface ge-0/0/7.0
+set routing-instances BGP-A1 interface lo0.10
+set routing-instances BGP-A1 routing-options router-id 192.168.10.1
+set routing-instances BGP-A1 routing-options autonomous-system 1
+set routing-instances BGP-A1 protocols bgp group internal-peers type internal
+set routing-instances BGP-A1 protocols bgp group internal-peers local-address 192.168.10.1
+set routing-instances BGP-A1 protocols bgp group internal-peers export send-ospf
+set routing-instances BGP-A1 protocols bgp group internal-peers export iBGP-to-eBGP
+set routing-instances BGP-A1 protocols bgp group internal-peers neighbor 192.168.10.2
+set routing-instances BGP-A1 protocols bgp group external-peers type external
+set routing-instances BGP-A1 protocols bgp group external-peers peer-as 2
+set routing-instances BGP-A1 protocols bgp group external-peers neighbor 192.168.0.2
+set routing-instances BGP-A1 protocols ospf area 0.0.0.2 interface lo0.10 passive
+set routing-instances BGP-A1 protocols ospf area 0.0.0.2 interface lt-0/0/0.1
+
+
+set routing-instances BGP-B1 description BGP-Reflector-Router
+set routing-instances BGP-B1 instance-type virtual-router
+set routing-instances BGP-B1 interface lt-0/0/0.2
+set routing-instances BGP-B1 interface lt-0/0/0.5
+set routing-instances BGP-B1 interface lo0.20
+set routing-instances BGP-B1 routing-options router-id 192.168.10.2
+set routing-instances BGP-B1 routing-options autonomous-system 1
+set routing-instances BGP-B1 protocols bgp group internal-peers type internal
+set routing-instances BGP-B1 protocols bgp group internal-peers local-address 192.168.10.2
+set routing-instances BGP-B1 protocols bgp group internal-peers export send-ospf
+set routing-instances BGP-B1 protocols bgp group internal-peers cluster 192.168.10.2
+set routing-instances BGP-B1 protocols bgp group internal-peers neighbor 192.168.10.1
+set routing-instances BGP-B1 protocols bgp group internal-peers neighbor 192.168.10.3
+set routing-instances BGP-B1 protocols bgp group internal-peers neighbor 192.168.10.4
+set routing-instances BGP-B1 protocols ospf area 0.0.0.2 interface lt-0/0/0.5
+set routing-instances BGP-B1 protocols ospf area 0.0.0.2 interface lt-0/0/0.2
+set routing-instances BGP-B1 protocols ospf area 0.0.0.2 interface lo0.20 passive
+
+
+set routing-instances BGP-C1 description BGP-router
+set routing-instances BGP-C1 instance-type virtual-router
+set routing-instances BGP-C1 interface lt-0/0/0.6
+set routing-instances BGP-C1 interface lt-0/0/0.9
+set routing-instances BGP-C1 interface lo0.30
+set routing-instances BGP-C1 routing-options router-id 192.168.10.3
+set routing-instances BGP-C1 routing-options autonomous-system 1
+set routing-instances BGP-C1 protocols bgp group internal-peers type internal
+set routing-instances BGP-C1 protocols bgp group internal-peers local-address 192.168.10.3
+set routing-instances BGP-C1 protocols bgp group internal-peers export send-ospf
+set routing-instances BGP-C1 protocols bgp group internal-peers neighbor 192.168.10.2
+set routing-instances BGP-C1 protocols ospf area 0.0.0.2 interface lo0.30 passive
+set routing-instances BGP-C1 protocols ospf area 0.0.0.2 interface lt-0/0/0.6
+set routing-instances BGP-C1 protocols ospf area 0.0.0.2 interface lt-0/0/0.9
+
+
+set routing-instances BGP-D1 description BGP-router
+set routing-instances BGP-D1 instance-type virtual-router
+set routing-instances BGP-D1 interface lt-0/0/0.10
+set routing-instances BGP-D1 interface lo0.40
+set routing-instances BGP-D1 routing-options router-id 192.168.10.4
+set routing-instances BGP-D1 routing-options autonomous-system 1
+set routing-instances BGP-D1 protocols bgp group internal-peers type internal
+set routing-instances BGP-D1 protocols bgp group internal-peers local-address 192.168.10.4
+set routing-instances BGP-D1 protocols bgp group internal-peers export send-ospf
+set routing-instances BGP-D1 protocols bgp group internal-peers neighbor 192.168.10.2
+set routing-instances BGP-D1 protocols ospf area 0.0.0.2 interface lt-0/0/0.10
+set routing-instances BGP-D1 protocols ospf area 0.0.0.2 interface lo0.40 passive
