@@ -1,16 +1,19 @@
-## APPENDIX D 
+## APPENDIX E
 
 # BGP
 
+[Configuration File for SRX-A1](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20E/%20%09Complete%20configuration%20srxA-1.txt)
 
-#FIX THESE
-[Configuration File for SRX-A1](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20D/srx-a1)
+The configurations of SRX-A1 when the BGP has been applied.
 
+[Set Commands for SRX-A1](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20D/%20%09Complete%20set%20commands%20srxA-1.txt)
 
-[Set Commands for SRX-A1](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20D/srx-a1%20set%20commands)
+The set commands of SRX-A1 when the BGP has been applied
 
+[Configuration File for SRX-A2](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20E/%20%09Complete%20configuration%20srxA-2.txt)
 
-[Configuration File for SRX-A2](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20D/srx-a2)
+The configurations of SRX-A2 when the BGP has been applied.
 
+[Set Commands for SRX-A2](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20D/%20%09Complete%20set%20commands%20srxA-2.txt)
 
-[Set Commands for SRX-A2](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20D/srx-a2%20set%20commands)
+The set commands of SRX-A2 when the BGP has been applied
