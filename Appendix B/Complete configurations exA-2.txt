@@ -1,0 +1,104 @@
+interfaces {
+    ge-0/0/13 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan20;
+                }
+            }
+        }
+    }
+    ge-0/0/14 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan10;
+                }
+            }
+        }
+    }    
+    ge-0/0/15 {
+        unit 0 {
+            family ethernet-switching {
+                port-mode trunk;
+                vlan {
+                    members [ vlan10 vlan20 ];
+            }
+        }
+    }
+
+    ge-0/0/16 {
+        description Link_to_vrhelweg;
+        unit 0 {
+            family inet {
+                address 10.10.10.1/30;
+            }
+        }
+    }
+    ge-0/0/17 {
+        description Link_to_vrmoos;
+        unit 0 {
+            family inet {
+                address 10.10.10.2/30;
+            }
+        }
+    }
+    vlan {
+        unit 10 {
+            family inet {
+                address 192.168.10.1/24;
+            }
+        }
+        unit 20 {
+            family inet {
+                address 192.168.20.1/24;
+            }
+        }
+    }
+}
+routing-instances {
+    vrhelweg {
+        instance-type virtual-router;
+        interface ge-0/0/17.0;
+        interface vlan.20;
+        protocols {
+            ospf {
+                area 0.0.0.1 {
+                    interface vlan.20;
+                    interface ge-0/0/17.0;
+                }
+            }
+        }
+    }
+    vrmoos {
+        instance-type virtual-router;
+        interface ge-0/0/10.0;
+        interface ge-0/0/16.0;
+        interface vlan.10;
+        protocols {
+            ospf {
+                area 0.0.0.1 {
+                    interface vlan.10;
+                    interface ge-0/0/16.0;
+                    interface ge-0/0/10.0;
+                }
+            }
+        }
+    }
+}
+vlans {
+    vlan10 {
+        description moos_test;
+        vlan-id 10;
+        interface {
+            ge-0/0/14.0;
+        }
+        l3-interface vlan.10;
+    }
+    vlan20 {
+        description Helweg_test;
+        vlan-id 20;
+        interface {
+            ge-0/0/13.0;
+        }
+        l3-interface vlan.20;
