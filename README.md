@@ -1,7 +1,11 @@
 # Project-Network-2nd-Semester
 ## Appendix A
-## Appendix B
-## Appendix C
+## Appendix B - VLANs
+### Complete configuration exA-2.txt
+### Complete set commands exA-2.txt
+## Appendix C - IPv6
+### Complete configuration srxA-2.txt
+### Complete set commands srxA-2.txt
 
 
 ## [Appendix D](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20D/README.md)
