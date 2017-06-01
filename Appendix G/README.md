@@ -1,8 +1,8 @@
-# Appendix I
+# Appendix G
 ## Complete configuration vSRX-1.txt
-The configurations of vSRX-1 when the class of service have been applied.
+The configurations of vSRX-1 when the firewall filters have been applied.
 ## Complete set commands vSRX-1.txt
-The set commands of vSRX-1 when the class of service have been applied.
+The set commands of vSRX-1 when the firewall filters have been applied.
 ## Startup configuration vSRX-1.txt
 The configurations of vSRX-1 at startup before any configurations have been made.
 ## Startup configuration vSRX-2.txt

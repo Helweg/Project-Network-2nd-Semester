@@ -2,7 +2,7 @@ version 12.1X47-D15.4;
 system {
     host-name vSRX-2;
     root-authentication {
-        encrypted-password "$1$XNdxF2O9$xfm8I5JvGv5p0Dk/Gi4jA1"; ## SECRET-DATA
+        encrypted-password "$1$EOtv1YTN$01na88c7oGg7ql/.rV3H0."; ## SECRET-DATA
         ssh-dsa "ssh-dss AAAAB3NzaC1kc3MAAACBAMQrfP2bZyBXJ6PC7XXZ+MzErI8Jl6jah5L4/O8BsfP2hC7EvRfNoX7MqbrtCX/9gUH9gChVuBCB+ERULMdgRvM5uGhC/gs4UX+4dBbfBgKYYwgmisM8EoT25m7qI8ybpl2YZvHNznvO8h7kr4kpYuQEpKvgsTdH/Jle4Uqnjv7DAAAAFQDZaqA6QAgbW3O/zveaLCIDj6p0dwAAAIB1iL+krWrXiD8NPpY+w4dWXEqaV3bnobzPC4eyxQKBUCOr80Q5YBlWXVBHx9elwBWZwj0SF4hLKHznExnLerVsMuTMA846RbQmSz62vM6kGM13HFonWeQvWia0TDr78+rOEgWF2KHBSIxL51lmIDW8Gql9hJfD/Dr/NKP97w3L0wAAAIEAr3FkWU8XbYytQYEKxsIN9P1UQ1ERXB3G40YwqFO484SlyKyYCfaz+yNsaAJu2C8UebDIR3GieyNcOAKf3inCG8jQwjLvZskuZwrvlsz/xtcxSoAh9axJcdUfSJYMW/g+mD26JK1Cliw5rwp2nH9kUrJxeI7IReDp4egNkM4i15o= configurator@server1.he"; ## SECRET-DATA
     }
     login {
@@ -10,7 +10,7 @@ system {
             uid 2000;
             class super-user;
             authentication {
-                encrypted-password "$1$c2hgS9ye$8sRNHffpjKlfrAUvVROhB/"; ## SECRET-DATA
+                encrypted-password "$1$jwJogbTf$95iPbvRk/zsXsvBIiQNZ0."; ## SECRET-DATA
             }
         }
     }
@@ -43,6 +43,14 @@ system {
     }
 }
 interfaces {
+    ge-0/0/0 {
+        description "MGMT Interface - DO NOT DELETE;";
+        unit 0 {
+            family inet {
+                address 172.25.11.2/24;
+            }
+        }
+    }
     lt-0/0/0 {
         unit 10 {
             description vrinternet_to_vrhost;
@@ -116,7 +124,7 @@ interfaces {
         }
     }
     ge-0/0/5 {
-        description vr101-neighbor;
+        description vr101-neoghbor;
         vlan-tagging;
         unit 1 {
             vlan-id 1;
@@ -137,6 +145,14 @@ interfaces {
             }
         }
     }
+    ge-0/0/6 {
+        description vr201_to_vSRX-1;
+        unit 0 {
+            family inet {
+                address 172.20.201.10/24;
+            }
+        }
+    }
     ge-0/0/7 {
         description vSRX-2_to_vr102;
         unit 0 {
@@ -150,14 +166,6 @@ interfaces {
         unit 0 {
             family inet {
                 address 172.20.102.10/24;
-            }
-        }
-    }
-    fxp0 {
-        description "MGMT Interface - DO NOT DELETE";
-        unit 0 {
-            family inet {
-                address 172.25.11.2/24;
             }
         }
     }
@@ -195,11 +203,48 @@ interfaces {
                 address 192.168.4.1/32;
             }
         }
+        unit 5 {
+            description "vr201 loopback";
+            family inet {
+                address 192.168.1.3/32;
+            }
+        }
     }
 }
 routing-options {
     static {
         route 0.0.0.0/0 next-hop 172.18.2.1;
+        route 192.168.1.2/32 {
+            next-hop 172.20.66.1;
+            qualified-next-hop 172.20.77.1 {
+                preference 6;
+            }
+        }
+        route 192.168.1.1/32 {
+            next-hop 172.20.66.1;
+            qualified-next-hop 172.20.77.1 {
+                preference 6;
+            }
+        }
+        route 172.20.101.0/24 {
+            next-hop 172.20.66.1;
+            qualified-next-hop 172.20.77.1 {
+                preference 6;
+            }
+        }
+        route 192.168.2.2/32 next-hop 172.20.102.10;
+        route 192.168.1.3/32 {
+            next-hop 172.20.66.1;
+            qualified-next-hop 172.20.77.1 {
+                preference 6;
+            }
+        }
+        route 172.20.201.0/24 {
+            next-hop 172.20.66.1;
+            qualified-next-hop 172.20.77.1 {
+                preference 6;
+            }
+        }
     }
 }
 protocols {
@@ -207,11 +252,8 @@ protocols {
         area 0.0.0.0 {
             interface ge-0/0/1.0;
             interface ge-0/0/2.0;
-            interface lo0.0 {
-                passive;
-            }
+            interface lo0.0;
             interface ge-0/0/7.0;
-            interface lt-0/0/0.40;
         }
     }
     ospf3 {
@@ -219,6 +261,56 @@ protocols {
             interface lo0.0;
             interface ge-0/0/1.0;
             interface ge-0/0/2.0;
+        }
+    }
+}
+class-of-service {
+    forwarding-classes {
+        queue 1 admin;
+        queue 2 voip;
+    }
+    interfaces {
+        ge-0/0/* {
+            scheduler-map my-sched-map;
+        }
+        ge-0/0/2 {
+            scheduler-map my-sched-map;
+            unit 0 {
+                classifiers {
+                    inet-precedence default;
+                }
+            }
+        }
+    }
+    scheduler-maps {
+        my-sched-map {
+            forwarding-class best-effort scheduler best-effort-sched;
+            forwarding-class admin scheduler admin-sched;
+            forwarding-class voip scheduler voip-sched;
+            forwarding-class network-control scheduler network-control-sched;
+        }
+    }
+    schedulers {
+        class-of-service;
+        best-effort-sched {
+            transmit-rate percent 40;
+            buffer-size percent 40;
+            priority low;
+        }
+        admin-sched {
+            transmit-rate percent 45;
+            buffer-size percent 45;
+            priority medium-low;
+        }
+        voip-sched {
+            transmit-rate percent 10;
+            buffer-size percent 10;
+            priority high;
+        }
+        network-control-sched {
+            transmit-rate percent 5;
+            buffer-size percent 5;
+            priority medium-high;
         }
     }
 }
@@ -235,35 +327,7 @@ security {
     }
 }
 routing-instances {
-    vr101 {
-        instance-type virtual-router;
-        interface ge-0/0/4.0;
-        interface ge-0/0/5.1;
-        interface ge-0/0/5.2;
-        interface ge-0/0/5.3;
-        interface lo0.1;
-        routing-options {
-            static {
-                route 0.0.0.0/0 next-hop 172.20.101.1;
-            }
-        }
-    }
-    vr102 {
-        instance-type virtual-router;
-        interface ge-0/0/8.0;
-        interface lo0.2;
-        protocols {
-            ospf {
-                area 0.0.0.0 {
-                    interface lo0.2 {
-                        passive;
-                    }
-                    interface ge-0/0/8.0;
-                }
-            }
-        }
-    }
-    vrhost {
+    VR_Host {
         instance-type virtual-router;
         interface lt-0/0/0.20;
         interface lo0.4;
@@ -273,7 +337,7 @@ routing-instances {
             }
         }
     }
-    vrinternet {
+    VR_Internet {
         instance-type virtual-router;
         interface lt-0/0/0.10;
         interface lt-0/0/0.30;
@@ -287,13 +351,55 @@ routing-instances {
                 route 192.168.2.2/32 next-hop 172.18.2.2;
                 route 172.20.101.0/24 next-hop 172.18.1.2;
                 route 172.20.102.0/24 next-hop 172.18.2.2;
-                route 192.168.4.1/32 next-hop 172.31.15.1;
-                route 172.21.0.0/22 {
-                    next-hop 172.18.1.2;
-                    qualified-next-hop 172.18.2.2 {
-                        preference 6;
-                    }
+            }
+        }
+    }
+    vr101 {
+        instance-type virtual-router;
+        interface ge-0/0/4.0;
+        interface ge-0/0/5.1;
+        interface ge-0/0/5.2;
+        interface ge-0/0/5.3;
+        interface lo0.1;
+        routing-options {
+            static {
+                route 0.0.0.0/0 next-hop 172.20.101.1;
+            }
+        }
+        protocols {
+            ospf {
+                area 0.0.0.0 {
+                    interface lo0.1;
+                    interface ge-0/0/4.0;
                 }
+            }
+        }
+    }
+    vr102 {
+        instance-type virtual-router;
+        interface ge-0/0/8.0;
+        interface lo0.2;
+        routing-options {
+            static {
+                route 0.0.0.0/0 next-hop 172.20.102.1;
+            }
+        }
+        protocols {
+            ospf {
+                area 0.0.0.0 {
+                    interface lo0.2;
+                    interface ge-0/0/8.0;
+                }
+            }
+        }
+    }
+    vr201 {
+        instance-type virtual-router;
+        interface ge-0/0/6.0;
+        interface lo0.5;
+        routing-options {
+            static {
+                route 0.0.0.0/0 next-hop 172.20.201.1;
             }
         }
     }
