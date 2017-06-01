@@ -1,0 +1,221 @@
+set version 12.1X47-D15.4
+set system host-name Host_SRX
+set system root-authentication encrypted-password "$1$SnlZBlbZ$lVh0mYNhN9/08SLtWtk4w."
+set system login message "This is my MACHINE. DO NOT USE without my approval."
+set system login user lab uid 2000
+set system login user lab class super-user
+set system login user lab authentication encrypted-password "$1$bRW56oIN$vZmegXsz/DOSCXr5Z8DId0"
+set system services ssh
+set system services web-management http interface ge-0/0/0.0
+set system syslog user * any emergency
+set system syslog file messages any any
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set interfaces ge-0/0/0 description "MGMT Inteface - DO NOT DELETE!!!"
+set interfaces ge-0/0/0 unit 0 family inet address 10.210.14.180/26
+set interfaces lt-0/0/0 unit 11 description vSRX-1_to_vSRX-2
+set interfaces lt-0/0/0 unit 11 encapsulation ethernet
+set interfaces lt-0/0/0 unit 11 peer-unit 21
+set interfaces lt-0/0/0 unit 11 family inet address 172.20.77.1/30
+set interfaces lt-0/0/0 unit 11 family inet6 address fdaa:dead:beef:1::/127
+set interfaces lt-0/0/0 unit 12 description vSRX-1_to_vSRX-2
+set interfaces lt-0/0/0 unit 12 encapsulation ethernet
+set interfaces lt-0/0/0 unit 12 peer-unit 22
+set interfaces lt-0/0/0 unit 12 family inet address 172.20.66.1/30
+set interfaces lt-0/0/0 unit 12 family inet6 address fdaa:dead:beef:2::/127
+set interfaces lt-0/0/0 unit 13 description vSRX-1_to_vrinternet
+set interfaces lt-0/0/0 unit 13 encapsulation ethernet
+set interfaces lt-0/0/0 unit 13 peer-unit 43
+set interfaces lt-0/0/0 unit 13 family inet address 172.18.1.2/30
+set interfaces lt-0/0/0 unit 14 description vSRX-1_to_vr101
+set interfaces lt-0/0/0 unit 14 encapsulation ethernet
+set interfaces lt-0/0/0 unit 14 peer-unit 101
+set interfaces lt-0/0/0 unit 14 family inet address 172.20.101.1/24
+set interfaces lt-0/0/0 unit 21 description vSRX-2_to_vSRX-1
+set interfaces lt-0/0/0 unit 21 encapsulation ethernet
+set interfaces lt-0/0/0 unit 21 peer-unit 11
+set interfaces lt-0/0/0 unit 21 family inet address 172.20.77.2/30
+set interfaces lt-0/0/0 unit 21 family inet6 address fdaa:dead:beef:1::1/127
+set interfaces lt-0/0/0 unit 22 description vSRX-2_to_vSRX-1
+set interfaces lt-0/0/0 unit 22 encapsulation ethernet
+set interfaces lt-0/0/0 unit 22 peer-unit 12
+set interfaces lt-0/0/0 unit 22 family inet address 172.20.66.2/30
+set interfaces lt-0/0/0 unit 22 family inet6 address fdaa:dead:beef:2::1/127
+set interfaces lt-0/0/0 unit 23 description vSRX-2_to_vrinternet
+set interfaces lt-0/0/0 unit 23 encapsulation ethernet
+set interfaces lt-0/0/0 unit 23 peer-unit 33
+set interfaces lt-0/0/0 unit 23 family inet address 172.18.2.2/30
+set interfaces lt-0/0/0 unit 24 description vSRX-2_to_vr102
+set interfaces lt-0/0/0 unit 24 encapsulation ethernet
+set interfaces lt-0/0/0 unit 24 peer-unit 102
+set interfaces lt-0/0/0 unit 24 family inet address 172.20.102.1/24
+set interfaces lt-0/0/0 unit 33 description vrinternet_to_vSRX-1
+set interfaces lt-0/0/0 unit 33 encapsulation ethernet
+set interfaces lt-0/0/0 unit 33 peer-unit 23
+set interfaces lt-0/0/0 unit 33 family inet address 172.18.2.1/30
+set interfaces lt-0/0/0 unit 43 description vrinternet_to_vSRX-2
+set interfaces lt-0/0/0 unit 43 encapsulation ethernet
+set interfaces lt-0/0/0 unit 43 peer-unit 13
+set interfaces lt-0/0/0 unit 43 family inet address 172.18.1.1/30
+set interfaces lt-0/0/0 unit 90 description vrinternet_to_vrinternet-host
+set interfaces lt-0/0/0 unit 90 encapsulation ethernet
+set interfaces lt-0/0/0 unit 90 peer-unit 91
+set interfaces lt-0/0/0 unit 90 family inet address 172.31.15.1/30
+set interfaces lt-0/0/0 unit 91 description vrinternet-host_to_vrinternet
+set interfaces lt-0/0/0 unit 91 encapsulation ethernet
+set interfaces lt-0/0/0 unit 91 peer-unit 90
+set interfaces lt-0/0/0 unit 91 family inet address 172.31.15.2/30
+set interfaces lt-0/0/0 unit 101 description vr101_to_vSRX-1
+set interfaces lt-0/0/0 unit 101 encapsulation ethernet
+set interfaces lt-0/0/0 unit 101 peer-unit 14
+set interfaces lt-0/0/0 unit 101 family inet address 172.20.101.10/24
+set interfaces lt-0/0/0 unit 102 description vr102_to_vSRX-2
+set interfaces lt-0/0/0 unit 102 encapsulation ethernet
+set interfaces lt-0/0/0 unit 102 peer-unit 24
+set interfaces lt-0/0/0 unit 102 family inet address 172.20.102.10/24
+set interfaces lt-0/0/0 unit 200 description vr101_to_vr101-neighbor
+set interfaces lt-0/0/0 unit 200 encapsulation ethernet
+set interfaces lt-0/0/0 unit 200 peer-unit 203
+set interfaces lt-0/0/0 unit 200 family inet address 172.21.0.1/24
+set interfaces lt-0/0/0 unit 201 description vr101_to_vr101-neighbor
+set interfaces lt-0/0/0 unit 201 encapsulation ethernet
+set interfaces lt-0/0/0 unit 201 peer-unit 204
+set interfaces lt-0/0/0 unit 201 family inet address 172.21.1.1/24
+set interfaces lt-0/0/0 unit 202 description vr101_to_vr101-neighbor
+set interfaces lt-0/0/0 unit 202 encapsulation ethernet
+set interfaces lt-0/0/0 unit 202 peer-unit 205
+set interfaces lt-0/0/0 unit 202 family inet address 172.21.2.1/24
+set interfaces lt-0/0/0 unit 203 description vr101-neighbor_to_vr101
+set interfaces lt-0/0/0 unit 203 encapsulation ethernet
+set interfaces lt-0/0/0 unit 203 peer-unit 200
+set interfaces lt-0/0/0 unit 203 family inet address 172.21.0.2/24
+set interfaces lt-0/0/0 unit 204 description vr101-neighbor_to_vr101
+set interfaces lt-0/0/0 unit 204 encapsulation ethernet
+set interfaces lt-0/0/0 unit 204 peer-unit 201
+set interfaces lt-0/0/0 unit 204 family inet address 172.21.1.2/24
+set interfaces lt-0/0/0 unit 205 description vr101-neighbor_to_vr101
+set interfaces lt-0/0/0 unit 205 encapsulation ethernet
+set interfaces lt-0/0/0 unit 205 peer-unit 202
+set interfaces lt-0/0/0 unit 205 family inet address 172.21.2.2/24
+set interfaces lo0 unit 1 description vSRX-1
+set interfaces lo0 unit 1 family inet address 192.168.1.1/32
+set interfaces lo0 unit 2 description vSRX-2
+set interfaces lo0 unit 2 family inet address 192.168.2.1/32
+set interfaces lo0 unit 90 description vrinternet
+set interfaces lo0 unit 90 family inet address 192.168.9.2/32
+set interfaces lo0 unit 91 description vrinternet-host
+set interfaces lo0 unit 91 family inet address 192.168.9.1/32
+set interfaces lo0 unit 101 description vr101
+set interfaces lo0 unit 101 family inet address 192.168.1.2/32
+set interfaces lo0 unit 102 description vr102
+set interfaces lo0 unit 102 family inet address 192.168.2.2/32
+set interfaces lo0 unit 200 description vr101-neighbor
+set interfaces lo0 unit 200 family inet address 192.168.200.2/32
+set policy-options policy-statement export-static-vsrx-1 term 1 from route-filter 172.31.15.0/30 exact
+set policy-options policy-statement export-static-vsrx-1 term 1 then accept
+set policy-options policy-statement export-static-vsrx-1 term 2 from route-filter 192.168.1.2/32 exact
+set policy-options policy-statement export-static-vsrx-1 term 2 from route-filter 192.168.9.2/32 exact
+set policy-options policy-statement export-static-vsrx-1 term 2 from route-filter 192.168.9.1/32 exact
+set policy-options policy-statement export-static-vsrx-1 term 2 then accept
+set policy-options policy-statement export-static-vsrx-2 term 1 from route-filter 172.31.15.0/30 exact
+set policy-options policy-statement export-static-vsrx-2 then accept
+set policy-options policy-statement match-vr101-neighbor term 1 from route-filter 172.21.0.0/24 exact
+set policy-options policy-statement match-vr101-neighbor term 1 from route-filter 172.21.1.0/24 exact
+set policy-options policy-statement match-vr101-neighbor term 1 from route-filter 172.21.2.0/24 exact
+set policy-options policy-statement match-vr101-neighbor term 1 from route-filter 172.20.101.0/24 exact
+set policy-options policy-statement match-vr101-neighbor term 1 from route-filter 192.168.200.2/32 exact
+set policy-options policy-statement match-vr101-neighbor term 1 then accept
+set security forwarding-options family inet6 mode packet-based
+set security forwarding-options family mpls mode packet-based
+set security screen ids-option untrust-screen icmp ping-death
+set security screen ids-option untrust-screen ip source-route-option
+set security screen ids-option untrust-screen ip tear-drop
+set security screen ids-option untrust-screen tcp syn-flood alarm-threshold 1024
+set security screen ids-option untrust-screen tcp syn-flood attack-threshold 200
+set security screen ids-option untrust-screen tcp syn-flood source-threshold 1024
+set security screen ids-option untrust-screen tcp syn-flood destination-threshold 2048
+set security screen ids-option untrust-screen tcp syn-flood queue-size 2000
+set security screen ids-option untrust-screen tcp syn-flood timeout 20
+set security screen ids-option untrust-screen tcp land
+set routing-instances vSRX-1 instance-type virtual-router
+set routing-instances vSRX-1 interface lt-0/0/0.11
+set routing-instances vSRX-1 interface lt-0/0/0.12
+set routing-instances vSRX-1 interface lt-0/0/0.13
+set routing-instances vSRX-1 interface lt-0/0/0.14
+set routing-instances vSRX-1 interface lo0.1
+set routing-instances vSRX-1 routing-options static route 172.31.15.0/30 next-hop 172.18.1.1
+set routing-instances vSRX-1 routing-options static route 172.21.0.0/24 next-hop 172.20.101.10
+set routing-instances vSRX-1 routing-options static route 172.21.1.0/24 next-hop 172.20.101.10
+set routing-instances vSRX-1 routing-options static route 172.21.2.0/24 next-hop 172.20.101.10
+set routing-instances vSRX-1 routing-options static route 192.168.1.2/32 next-hop 172.20.101.10
+set routing-instances vSRX-1 routing-options static route 192.168.9.2/32 next-hop 172.18.1.1
+set routing-instances vSRX-1 routing-options static route 192.168.9.1/32 next-hop 172.18.1.1
+set routing-instances vSRX-1 routing-options static route 192.168.200.2/32 next-hop 172.20.101.10
+set routing-instances vSRX-1 protocols ospf export export-static-vsrx-1
+set routing-instances vSRX-1 protocols ospf export match-vr101-neighbor
+set routing-instances vSRX-1 protocols ospf area 0.0.0.0 interface lt-0/0/0.11
+set routing-instances vSRX-1 protocols ospf area 0.0.0.0 interface lt-0/0/0.12
+set routing-instances vSRX-1 protocols ospf area 0.0.0.0 interface lt-0/0/0.14
+set routing-instances vSRX-1 protocols ospf area 0.0.0.0 interface lo0.1 passive
+set routing-instances vSRX-1 protocols ospf area 0.0.0.0 interface lt-0/0/0.13
+set routing-instances vSRX-1 protocols ospf3 area 0.0.0.0 interface lt-0/0/0.11
+set routing-instances vSRX-1 protocols ospf3 area 0.0.0.0 interface lt-0/0/0.12
+set routing-instances vSRX-2 instance-type virtual-router
+set routing-instances vSRX-2 interface lt-0/0/0.21
+set routing-instances vSRX-2 interface lt-0/0/0.22
+set routing-instances vSRX-2 interface lt-0/0/0.23
+set routing-instances vSRX-2 interface lt-0/0/0.24
+set routing-instances vSRX-2 interface lo0.2
+set routing-instances vSRX-2 routing-options static route 172.31.15.0/30 next-hop 172.18.2.1
+set routing-instances vSRX-2 routing-options static route 192.168.9.2/32 next-hop 172.18.2.1
+set routing-instances vSRX-2 routing-options static route 192.168.9.1/32 next-hop 172.18.2.1
+set routing-instances vSRX-2 protocols ospf export export-static-vsrx-2
+set routing-instances vSRX-2 protocols ospf area 0.0.0.0 interface lo0.2 passive
+set routing-instances vSRX-2 protocols ospf area 0.0.0.0 interface lt-0/0/0.22
+set routing-instances vSRX-2 protocols ospf area 0.0.0.0 interface lt-0/0/0.21
+set routing-instances vSRX-2 protocols ospf area 0.0.0.0 interface lt-0/0/0.24
+set routing-instances vSRX-2 protocols ospf area 0.0.0.0 interface lt-0/0/0.23
+set routing-instances vSRX-2 protocols ospf3 area 0.0.0.0 interface lt-0/0/0.21
+set routing-instances vSRX-2 protocols ospf3 area 0.0.0.0 interface lt-0/0/0.22
+set routing-instances vr101 instance-type virtual-router
+set routing-instances vr101 interface lt-0/0/0.101
+set routing-instances vr101 interface lt-0/0/0.200
+set routing-instances vr101 interface lt-0/0/0.201
+set routing-instances vr101 interface lt-0/0/0.202
+set routing-instances vr101 interface lo0.101
+set routing-instances vr101 routing-options static route 0.0.0.0/0 next-hop 172.20.101.1
+set routing-instances vr101 routing-options static route 192.168.200.2/32 next-hop 172.21.0.2
+set routing-instances vr101 routing-options static route 192.168.200.2/32 qualified-next-hop 172.21.1.2 preference 6
+set routing-instances vr101 routing-options static route 192.168.200.2/32 qualified-next-hop 172.21.2.2 preference 7
+set routing-instances vr101-neighbor instance-type virtual-router
+set routing-instances vr101-neighbor interface lt-0/0/0.203
+set routing-instances vr101-neighbor interface lt-0/0/0.204
+set routing-instances vr101-neighbor interface lt-0/0/0.205
+set routing-instances vr101-neighbor interface lo0.200
+set routing-instances vr101-neighbor routing-options static route 0.0.0.0/0 next-hop 172.21.0.1
+set routing-instances vr101-neighbor routing-options static route 0.0.0.0/0 qualified-next-hop 172.21.1.1 preference 6
+set routing-instances vr101-neighbor routing-options static route 0.0.0.0/0 qualified-next-hop 172.21.2.1 preference 7
+set routing-instances vr102 instance-type virtual-router
+set routing-instances vr102 interface lt-0/0/0.102
+set routing-instances vr102 interface lo0.102
+set routing-instances vr102 protocols ospf area 0.0.0.0 interface lt-0/0/0.102
+set routing-instances vr102 protocols ospf area 0.0.0.0 interface lo0.102 passive
+set routing-instances vrinternet instance-type virtual-router
+set routing-instances vrinternet interface lt-0/0/0.33
+set routing-instances vrinternet interface lt-0/0/0.43
+set routing-instances vrinternet interface lt-0/0/0.90
+set routing-instances vrinternet interface lo0.90
+set routing-instances vrinternet routing-options static route 192.168.1.1/32 next-hop 172.18.1.2
+set routing-instances vrinternet routing-options static route 192.168.1.2/32 next-hop 172.18.1.2
+set routing-instances vrinternet routing-options static route 192.168.2.2/32 next-hop 172.18.2.2
+set routing-instances vrinternet routing-options static route 192.168.2.1/32 next-hop 172.18.2.2
+set routing-instances vrinternet routing-options static route 172.20.102.0/24 next-hop 172.18.2.2
+set routing-instances vrinternet routing-options static route 172.20.101.0/24 next-hop 172.18.1.2
+set routing-instances vrinternet routing-options static route 172.21.0.0/22 next-hop 172.18.1.2
+set routing-instances vrinternet routing-options static route 192.168.200.2/32 next-hop 172.18.1.2
+set routing-instances vrinternet routing-options static route 192.168.9.1/32 next-hop 172.31.15.2
+set routing-instances vrinternet-host instance-type virtual-router
+set routing-instances vrinternet-host interface lt-0/0/0.91
+set routing-instances vrinternet-host interface lo0.91
+set routing-instances vrinternet-host routing-options static route 0.0.0.0/0 next-hop 172.31.15.1
