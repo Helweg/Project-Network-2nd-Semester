@@ -14,7 +14,9 @@
 ## [Appendix E](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20E/README.md)
 
 
-## Appendix F
+## Appendix F - Routing Policy
+### Complete configuration Host_SRX.txt
+### Complete set commands Host_SRX.txt
 ## Appendix G
 ## Appendix H - Firewall Filters
 ### Complete configuration vSRX-1.txt
