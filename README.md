@@ -1,6 +1,6 @@
 # Project-Network-2nd-Semester
 ## Appendix A
-## Appendix B - VLANs
+## [Appendix B - VLANs](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20B/README.md)
 ### Complete configuration exA-2.txt
 ### Complete set commands exA-2.txt
 ## Appendix C - IPv6
@@ -14,10 +14,10 @@
 ## [Appendix E](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20E/README.md)
 
 
-## Appendix F - Routing Policy
+## [Appendix F - Routing Policy](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20F/README.md)
 ### Complete configuration Host_SRX.txt
 ### Complete set commands Host_SRX.txt
-## Appendix G
+## [Appendix G]
 ## Appendix H - Firewall Filters
 ### Complete configuration vSRX-1.txt
 ### Complete set commands vSRX-1.txt
