@@ -8,6 +8,6 @@ The full configurations of srxA-2, after everything have been configured
 
 The set commands of srxA-2, after everything have been configured.
 
-## [Full Explaination of the IPv6 Header](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/Full%20Explaination%20of%20the%20IPv6%20Header.pdf)
+## [Full Explaination of the IPv6 Header](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/IPv6%20Header%20Explaination.pdf)
 
 This contains the full explaination of the IPv6 header.
