@@ -18,16 +18,16 @@
 ## [Appendix F - Routing Policy](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/APPENDIX%20F/README.md)
 ### [Complete configuration Host_SRX.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20F/Complete%20Configuration%20Host_SRX.txt)
 ### [Complete set commands Host_SRX.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20F/Complete%20set%20commands%20Host_SRX.txt)
-## Appendix G
-## Appendix H - Firewall Filters
+## Appendix G - Firewall Filters
 ### Complete configuration vSRX-1.txt
 ### Complete set commands vSRX-1.txt
 ### Startup configuration vSRX-1.txt
 ### Startup configuration vSRX-2.txt
 The complete configurations and set commands for vSRX-2 are not included, since no configurations are done on them.
-## Appendix I - CoS
+## Appendix H - CoS
 ### Complete configuration vSRX-1.txt
 ### Complete set commands vSRX-1.txt
 ### Startup configuration vSRX-1.txt
 ### Startup configuration vSRX-2.txt
 The complete configurations and set commands for vSRX-2 are not included, since no configurations are done on them.
+## Appendix I 
