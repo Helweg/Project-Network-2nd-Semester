@@ -13,7 +13,9 @@
 
 ## [Appendix F - Routing Policy](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20F/README.md)
 
-## [Appendix H - Firewall Filters](https://github.com/Helweg/Project-Network-2nd-Semester/tree/master/Appendix%20H/README.md)
+## [Appendix G - Firewall Filters](https://github.com/Helweg/Project-Network-2nd-Semester/tree/master/Appendix%20H/README.md)
 
-## [Appendix  - CoS](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20H/README.md)
+## [Appendix H - CoS](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20H/README.md)
+
+## [Appendix I - Automation](https://github.com/lydiavasileva/LLD-to-junos-config-project/blob/master/README.md)
 
