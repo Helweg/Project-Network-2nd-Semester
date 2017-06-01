@@ -17,5 +17,5 @@
 
 ## [Appendix H - CoS](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20H/README.md)
 
-## [Appendix I - Automation](https://github.com/lydiavasileva/LLD-to-junos-config-project/blob/master/README.md)
+## [Appendix I - Automation](https://github.com/lydiavasileva/LLD-to-junos-config-project/)
 
