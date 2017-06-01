@@ -10,7 +10,7 @@ The configurations of SRX-A1 when the IS-IS protocol has been applied.
 
 The set commands of SRX-A1 when the IS-IS protocol has been applied
 
-[Configuration File for SRX-A2]https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20D/Complete%20configuration%20srxA-2.txt)
+[Configuration File for SRX-A2](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20D/Complete%20configuration%20srxA-2.txt)
 
 The configurations of SRX-A2 when the IS-IS protocol has been applied
 
