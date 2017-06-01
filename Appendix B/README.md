@@ -1,5 +1,4 @@
-# Appendix B
-## Complete configuration exA-2.txt
-The full configurations of exA-2, after everything have been configured
-## Complete set commands exA-2.txt
-The set commands of exA-2, after everything have been configured. 
+# Appendix B 
+
+[Complete configuration exA-2.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20B/Complete%20configurations%20exA-2.txt)
+[Complete set commands exA-2.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20B/Complete%20set%20commands%20exA-2.txt)
