@@ -1,4 +1,4 @@
-# APPENDIX E - BGP
+# Appendix E - BGP
 
 ## [Configuration File for SRX-A1](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20E/Complete%20configuration%20srxA-1.txt)
 
