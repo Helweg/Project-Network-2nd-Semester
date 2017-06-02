@@ -7,7 +7,12 @@ Lecturere Peter Lilkehof Thomsen
 
 
 ## IPv6
-Juniper IJOS documentation   
+Juniper IJOS documentation
+[Difference between IPv4 and IPv6](http://www.webopedia.com/DidYouKnow/Internet/ipv6_ipv4_difference.html)   
+[The Internet Protocol](https://en.wikipedia.org/wiki/Internet_Protocol)   
+[IPv6](https://en.wikipedia.org/wiki/IPv6)   
+[IPv6 Header](http://ipv6.com/articles/general/IPv6-Header.htm)   
+[IPv6 Addressing](http://ipv6.com/articles/general/IPv6-Addressing.htm)      
 Lecturere Peter Lilkehof Thomsen   
 
 ## IS-IS
