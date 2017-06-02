@@ -2,7 +2,7 @@
 
 ## [Complete configuration srxA-2.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/Complete%20configuration%20srxA-2.txt)
 
-The full configurations of srxA-2, after everything have been configured
+The full configurations of srxA-2, after everything have been configured.
 
 ## [Complete set commands srxA-2.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/Complete%20set%20commands%20srxA-2.txt)
 
