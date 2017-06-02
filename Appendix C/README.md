@@ -1,7 +1,4 @@
-# Appendix C
-
-
-### IPv6
+# Appendix C - IPv6
 
 ## [Complete configuration srxA-2.txt](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/Complete%20configuration%20srxA-2.txt)
 
