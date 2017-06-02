@@ -1,7 +1,8 @@
 # Appendix A - Sources
 
 ## VLANs
-Juniper IJOS documentation   
+Juniper IJOS documentation
+[Configure VLANs in Juniper switch](http://www.mustbegeek.com/configure-vlans-in-juniper-switch/)
 Lecturere Peter Lilkehof Thomsen   
 
 
