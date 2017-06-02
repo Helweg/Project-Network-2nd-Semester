@@ -1,8 +1,7 @@
 # Appendix A - Sources
 
 ## VLANs
-Juniper IJOS documentation
-[Configure VLANs in Juniper switch](http://www.mustbegeek.com/configure-vlans-in-juniper-switch/)
+Juniper IJOS documentation   
 Lecturere Peter Lilkehof Thomsen   
 
 
@@ -11,11 +10,15 @@ Juniper IJOS documentation
 Lecturere Peter Lilkehof Thomsen   
 
 ## IS-IS
-Juniper IJOS documentation   
+[Juniper Documentation](https://www.juniper.net/documentation/en_US/junos/topics/concept/is-is-routing-overview.html)
+[Wikipedia](https://en.wikipedia.org/wiki/IS-IS)
+[Metadata](http://www.metaswitch.com/resources/what-is-intermediate-system-to-intermediate-system-isis)
 Lecturere Peter Lilkehof Thomsen   
 
 ## BGP
-Juniper IJOS documentation   
+[Juniper Documentation](https://www.juniper.net/documentation/en_US/junos/topics/concept/bgp-routing-overview.html)
+[Wikipedia](https://en.wikipedia.org/wiki/Border_Gateway_Protocol)
+[Enterprise Networking Planet](http://www.enterprisenetworkingplanet.com/netsp/article.php/3615896/Networking-101-Understanding-BGP-Routing.htm)
 Lecturere Peter Lilkehof Thomsen   
 
 ## Routing Policy
