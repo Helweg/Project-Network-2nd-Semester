@@ -4,7 +4,7 @@
 ## [Appendix A - Sources](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20A/README.md)
 Contains a full list of links and other resources that has been used throughout the project.
 
-## [Appendix B - VLANs](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20B/README.md
+## [Appendix B - VLANs](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20B/README.md)
 Contains the set commands and configurations, that has been refered to in the VLAN chapter.
 
 ## [Appendix C - IPv6](https://github.com/Helweg/Project-Network-2nd-Semester/blob/master/Appendix%20C/README.md)
